@@ -80,7 +80,7 @@ async function setMetadata() {
         console.log('\n🎉 УСПЕХ! Метаданные созданы!');
         console.log(`🔗 Токен: ${mintAddress.toString()}`);
         console.log(`📝 Метаданные: ${metadataAddress.toString()}`);
-        console.log(`🌐 Посмотреть в Explorer: https://explorer.solana.com/address/${mintAddress.toString()}?cluster=devnet`);
+        console.log(`🌐 Посмотреть в Explorer: https://explorer.solana.com/address/${mintAddress.toString()}${process.env.SOLANA_NETWORK === 'mainnet-beta' ? '' : '?cluster=devnet'}`);
 
     } catch (error) {
         console.error('❌ Ошибка:', error);
