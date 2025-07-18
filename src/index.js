@@ -231,11 +231,14 @@ class SolanaMetadataCreator {
     }
 
     // Создание Metadata Account в блокчейне (ИСПРАВЛЕННАЯ ВЕРСИЯ)
+// Создание Metadata Account в блокчейне (ИСПРАВЛЕННАЯ ВЕРСИЯ)
     async createMetadataAccount(metadataUri) {
         console.log('\n🔗 Создание Metadata Account...');
         
         try {
             console.log('   📝 Подписание транзакции...');
+
+            const { transactionBuilder } = require('@metaplex-foundation/umi');
 
             // Создание инструкции для создания метаданных
             const createMetadataInstruction = createMetadataAccountV3(this.umi, {
@@ -261,11 +264,11 @@ class SolanaMetadataCreator {
                 collectionDetails: null
             });
 
-            // Создание и отправка транзакции
-            const transaction = transactionBuilder()
+            // Построение и отправка транзакции
+            const tx = transactionBuilder()
                 .add(createMetadataInstruction);
 
-            const result = await transaction.sendAndConfirm(this.umi);
+            const result = await tx.sendAndConfirm(this.umi);
             const signature = result.signature;
             
             console.log(`   ✅ Транзакция отправлена: ${signature.slice(0, 5)}...${signature.slice(-4)}`);
@@ -281,10 +284,11 @@ class SolanaMetadataCreator {
             
         } catch (error) {
             console.error('❌ Ошибка создания Metadata Account:', error.message);
+            console.error('🔍 Полная ошибка:', error);
             
             // Дополнительная диагностика
             if (error.message.includes('already exists')) {
-                console.error('💡 Токен уже имеет метаданные. Используйте скрипт для обновления метаданных.');
+                console.error('💡 Токен уже имеет метаданные.');
             } else if (error.message.includes('insufficient funds')) {
                 console.error('💡 Недостаточно SOL для транзакции. Пополните кошелек.');
             } else if (error.message.includes('authority')) {
@@ -294,7 +298,6 @@ class SolanaMetadataCreator {
             process.exit(1);
         }
     }
-
     // Получение Content-Type для файла
     getContentType(fileName) {
         const ext = path.extname(fileName).toLowerCase();

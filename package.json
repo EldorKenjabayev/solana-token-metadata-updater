@@ -21,10 +21,11 @@
   "author": "eldorkenjabayev13",
   "license": "MIT",
   "dependencies": {
+    "@metaplex-foundation/js": "^0.20.1",
+    "@metaplex-foundation/mpl-token-metadata": "^3.2.1",
     "@metaplex-foundation/umi": "^0.9.2",
     "@metaplex-foundation/umi-bundle-defaults": "^0.9.2",
     "@metaplex-foundation/umi-uploader-irys": "^0.9.2",
-    "@metaplex-foundation/mpl-token-metadata": "^3.2.1",
     "@metaplex-foundation/umi-web3js-adapters": "^0.9.2",
     "@solana/web3.js": "^1.95.2",
     "dotenv": "^16.4.5"
